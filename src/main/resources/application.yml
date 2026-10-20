@@ -1,0 +1,21 @@
+# IDE 가 만든 DB 설정입니다. 필요하면 자유롭게 고쳐도 됩니다.
+spring:
+  datasource:
+    # H2: 프로그램 안에 들어 있는 메모리 DB 라 따로 설치할 것이 없습니다.
+    # 실행을 멈추면 데이터가 사라집니다. MODE=MySQL 은 MySQL 문법을 흉내 내 나중에 옮기기 쉽게 합니다.
+    url: jdbc:h2:mem:appdb;MODE=MySQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      # 실행할 때마다 엔티티를 보고 표를 새로 만듭니다.
+      ddl-auto: create
+    show-sql: true
+
+# MySQL 로 바꾸려면 build.gradle 에 runtimeOnly 'com.mysql:mysql-connector-j' 를 넣고
+# 위 datasource 를 아래처럼 바꿉니다. 실행 컨테이너 안의 localhost 는 컨테이너 자신이라
+# MySQL 서버의 실제 주소를 적어야 합니다.
+#    url: jdbc:mysql://DB서버주소:3306/DB이름?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+#    username: 계정
+#    password: 비밀번호
+# 그리고 ddl-auto 는 update 로 바꿔야 실행할 때마다 데이터가 지워지지 않습니다.
